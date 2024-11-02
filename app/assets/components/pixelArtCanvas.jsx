@@ -2,17 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export default function PixelArtCanvas() {
   const canvasRef = useRef(null);
   const [currentColor, setCurrentColor] = useState("#000000");
   const pixelSize = 10;
-
-  const drawPixel = (x, y, color) => {
-    const ctx = canvasRef.current.getContext("2d");
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, pixelSize, pixelSize);
-  };
 
   useEffect(() => {
     const fetchPixels = async () => {
@@ -31,6 +26,12 @@ export default function PixelArtCanvas() {
     fetchPixels();
   }, []);
 
+  const drawPixel = (x, y, color) => {
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, pixelSize, pixelSize);
+  };
+
   const handleClick = async (event) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
@@ -48,7 +49,7 @@ export default function PixelArtCanvas() {
 
   return (
     <div>
-      <canvas ref={canvasRef} onClick={handleClick} width={500} height={500} style={{ border: "1px solid black", backgroundColor: "#eee" }} />
+      <canvas ref={canvasRef} onClick={handleClick} width={1900} height={900} style={{ border: "1px solid black", backgroundColor: "#eee" }} />
       <input type="color" value={currentColor} onChange={(e) => setCurrentColor(e.target.value)} />
     </div>
   );

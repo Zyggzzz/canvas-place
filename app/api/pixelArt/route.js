@@ -1,4 +1,3 @@
-// pages/api/pixelArt.js
 import { query } from "@/app/assets/js/database";
 
 export async function POST(req) {
@@ -11,7 +10,6 @@ export async function POST(req) {
       await query("UPDATE pixels SET color = ? WHERE x = ? AND y = ?", [color, x, y]);
       return new Response(JSON.stringify({ message: "Pixel color updated successfully" }), { status: 200 });
     } else {
-      // Insert a new pixel
       await query("INSERT INTO pixels (x, y, color) VALUES (?, ?, ?)", [x, y, color]);
       return new Response(JSON.stringify({ message: "Pixel added successfully" }), { status: 200 });
     }

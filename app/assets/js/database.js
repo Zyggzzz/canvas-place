@@ -36,6 +36,8 @@ export async function query(sql, params) {
             return reject(error);
           }
           resolve(results);
+          console.log("Database query executed successfully");
+          return results;
         });
       })
       .catch(reject);
