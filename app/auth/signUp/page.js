@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import styles from "@/app/assets/css/signUp.css";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -26,20 +27,28 @@ export default function SignUp() {
   };
 
   return (
-    <div>
-      <h1>Create Account</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+    <div className="page-container">
+      <header className="header">Create Account</header>
+      <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+        <div className="form-group">
+          <label className="label">Username:</label>
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required className="input-field" />
         </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <div className="form-group">
+          <label className="label">Password:</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="input-field" />
         </div>
-        <button type="submit">Create Account</button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button type="submit" className="submit-button">
+          Create Account
+        </button>
+        {error && <p className="error-message">{error}</p>}
       </form>
+      <footer className="footer">
+        Already have an account?{" "}
+        <a href="/auth/signIn" style={{ color: "var(--accentcolor)" }}>
+          Sign In
+        </a>
+      </footer>
     </div>
   );
 }

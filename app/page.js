@@ -41,5 +41,5 @@ export default function Home() {
     return <div>{error}</div>;
   }
 
-  return <div>{status && <PixelArtCanvas />}</div>;
+  return <div>{status == "verified" && <PixelArtCanvas />}</div>;
 }

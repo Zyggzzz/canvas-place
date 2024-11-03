@@ -1,0 +1,93 @@
+@import "root.css";
+
+:root {
+  --form-bgcolor: #222222;
+  --form-border: 1px solid rgba(255, 255, 255, 0.2);
+  --form-padding: 1.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bgcolor);
+  color: var(--basetextcolor);
+  font-family: var(--font-sans);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.page-container {
+  background-color: var(--form-bgcolor);
+  padding: var(--form-padding);
+  border-radius: var(--border-radius);
+  border: var(--form-border);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--basetextcolor);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--basetextcolor);
+  font-size: 1rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--input-bgcolor);
+  border: var(--input-border);
+  border-radius: var(--border-radius);
+  color: var(--basetextcolor);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: border 0.2s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--accentcolor);
+}
+
+.submit-button {
+  background-color: var(--button-bgcolor);
+  color: var(--button-textcolor);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.submit-button:hover {
+  background-color: var(--accentcolor);
+  opacity: 1;
+}
+
+.error-message {
+  color: red;
+  margin-top: 1rem;
+}
