@@ -12,8 +12,6 @@ export async function GET(req) {
 
   const user = await validateToken(token);
 
-  console.log(user);
-
   if (user === null) {
     return new Response(JSON.stringify({ error: "Invalid token" }), { status: 401 });
   }

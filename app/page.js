@@ -20,7 +20,6 @@ export default function Home() {
         });
 
         setStatus(response.data.status);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching protected data:", error);
         setError("Not authorized");
