@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/app/assets/css/error.css";
+import "@/app/assets/css/error.css";
 
 export default function ErrorPage() {
   return (

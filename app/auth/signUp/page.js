@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import styles from "@/app/assets/css/signUp.css";
+import "@/app/assets/css/signUp.css";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");

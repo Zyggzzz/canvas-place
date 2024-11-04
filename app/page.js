@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import PixelArtCanvas from "./assets/components/pixelArtCanvas";
 import axios from "axios";
-import styles from "@/app/assets/css/root.css";
 
 export default function Home() {
   const router = useRouter();

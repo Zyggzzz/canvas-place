@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import styles from "@/app/assets/css/artBoard.css";
+import "@/app/assets/css/artBoard.css";
 
 export default function PixelArtCanvas() {
   const canvasRef = useRef(null);
@@ -55,7 +55,7 @@ export default function PixelArtCanvas() {
   };
 
   return (
-    <div className="page-container">
+    <div className="canvas-container">
       <div className="artboard-container">
         <h1>Draw Your Art</h1>
         <div className="canvas-frame">
