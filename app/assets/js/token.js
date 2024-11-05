@@ -6,6 +6,9 @@ const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 export async function validateToken(token) {
   try {
+    if (!token) {
+      return null;
+    }
     const decoded = jwt.verify(token, SECRET_KEY);
     const result = await query(`SELECT * FROM sessions WHERE token = ?`, [token]);
 
