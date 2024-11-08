@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CanvasPlace - A Clone of r/place
+
+CanvasPlace is a pixel art platform inspired by the r/place community project. It allows users to create accounts, log in with JWT-based sessions, and participate in a shared pixel art canvas. Built using Next.js, React, Bun, and a custom API, this project aims to provide a simple, interactive platform for creative expression.
+
+## Features
+
+- **User Authentication**: Account creation and login functionality using JWT-based sessions.
+- **Pixel Art Canvas**: Users can place colored pixels on a shared canvas.
+- **Rate Limiting**: Basic rate limiting is enforced, so users can only place pixels at specified intervals.
+- **Tech Stack**: Bun, Next.js, React, JavaScript, and a SQL database for persistence.
+
+## Database Structure
+
+This project uses a SQL database with the following structure:
+
+- **pixels** table: Stores pixel coordinates and color information.
+- **sessions** table: Stores JWT tokens for authenticated sessions.
+- **users** table: Stores user information, including usernames, hashed passwords, and timestamps of their last pixel placement.
+
+```sql
+-- pixels table
+CREATE TABLE IF NOT EXISTS `pixels` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `x` int(11) DEFAULT 0,
+  `y` int(11) DEFAULT 0,
+  `color` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- sessions table
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- users table
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `last_placed_at` bigint(20) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+    Bun
+    Node.js and npm (optional but recommended)
+    MySQL or compatible SQL database
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to clone and set up the project locally:
+  1. Clone the Repository
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    git clone https://github.com/your-username/CanvasPlace.git
+    cd CanvasPlace
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install Dependencies
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Using Bun:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    bun install
 
-## Learn More
+3. Configure the Database
 
-To learn more about Next.js, take a look at the following resources:
+Create a MySQL database named canvasplace and import the table structure provided above.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    CREATE DATABASE canvasplace;
+    USE canvasplace;
+    -- Paste table creation scripts here
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Environment Variables
 
-## Deploy on Vercel
+Create a .env file in the root directory and set the following environment variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    JWT_SECRET=*your jwt secret key*
+    dbhost=*your host ip*
+    dbuser=*your database username*
+    dbpass=*your database password*
+    dbname=*your database name*
+    dbport=*your database port*
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+5. Run the Development Server
+
+To start the server, use the following command:
+
+    bun run dev
+
+Your application should now be running at http://localhost:3000.
+6. Testing the Application
+
+    Sign Up: Create a new account through the UI.
+    Log In: Use your credentials to log in. A JWT token will be generated and stored for the session.
+    Place Pixels: Choose a pixel on the canvas, select a color, and place it. The color will appear on the canvas for all users to see.
+
+Project Structure
+
+This is the project structure for CanvasPlace:
+
+    CanvasPlace
+    ├── app
+    │   ├── api
+    │   │   ├── auth
+    │   │   │   ├── signin
+    │   │   │   │   └── route.js
+    │   │   │   └── signUp
+    │   │   │       └── route.js
+    │   │   ├── pixelArt
+    │   │   │   └── route.js
+    │   │   └── protected
+    │   │       └── route.js
+    │   ├── auth
+    │   │   ├── error
+    │   │   │   └── page.js
+    │   │   ├── signin
+    │   │   │   └── page.js
+    │   │   └── signUp
+    │   │       └── page.js
+    │   ├── error
+    │   │   └── page.js
+    │   ├── favicon.ico
+    │   ├── layout.js
+    │   └── page.js
+    ├── assets
+    │   ├── components
+    │   │   └── pixelArtCanvas.jsx
+    │   ├── css
+    │   │   ├── artBoard.css
+    │   │   ├── error.css
+    │   │   ├── root.css
+    │   │   └── signUp.css
+    │   └── js
+    │       ├── database.js
+    │       └── token.js
+    ├── .gitignore
+    ├── bun.lockb
+    ├── jsconfig.json
+    ├── next.config.mjs
+    ├── package.json
+    └── README.md
+
+  app/api: Contains custom API routes for managing authentication, pixel art data, and protected routes.
+  app/auth: Authentication-related pages, such as sign-in, sign-up, and error pages.
+  app/error: Error handling page.
+  assets/components: Reusable components, such as the pixel art canvas component.
+  assets/css: CSS files for styling different parts of the application.
+  assets/js: Utility JavaScript files, such as database connection and token handling.
+
+Future Improvements
+
+    Real-time updates: Implement real-time updates with WebSockets for a more interactive experience.
+    Rate limiting: Add rate limiting feature
+    Canvas resizing: Support multiple canvas sizes and zoom levels.
+
+Contributing
+
+This project was created as a solo project. If you'd like to suggest improvements or report issues, feel free to create an issue or fork the repository.
